@@ -1,0 +1,30 @@
+PREFIX=arm-none-eabi-
+CC    = $(PREFIX)gcc
+AS    = $(PREFIX)as
+GDB  ?= gdb-multiarch
+
+ASFLAGS = -g
+CFLAGS = -c -g -O1 -mcpu=cortex-m4 -mthumb
+CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+LDFLAGS = -T ld_ram.lds -nostdlib
+
+OBJ = main.o crt0.o
+EXE = main
+
+all: $(EXE)
+
+
+$(EXE): $(OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+.PHONY: connect debug clean
+
+connect:
+	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
+
+debug: $(EXE)
+	$(GDB) -x se203.gdb $<
+
+clean:
+	rm -f $(OBJ)
+	rm -f $(EXE)
