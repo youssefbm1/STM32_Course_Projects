@@ -1,11 +1,23 @@
-int fibo(int n) {
-    if (n <= 1) {
-        return n;
+#include "led.c"
+
+int main() {
+    led_init();
+
+    while (1) {
+        led_g_on();
+
+        for (int i = 0; i < 1000000; i++) {
+            asm volatile("nop");
+        }
+
+        led_g_off();
+
+        for (int i = 0; i < 1000000; i++) {
+            asm volatile("nop");
+        }
+
+        
     }
-    return fibo(n - 1) + fibo(n - 2);
-}
 
-void main() {
-    int result = fibo(8);
+    return 0;
 }
-
