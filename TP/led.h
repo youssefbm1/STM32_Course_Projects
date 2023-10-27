@@ -15,7 +15,9 @@
 #define GPIO_MODER_OFFSET  0x00
 
 #define GPIOB_MODER_PIN14_OUTPUT  (1 << 29) 
-#define GPIOC_MODER_PIN9_OUTPUT  (1 << 19)  
+#define GPIOC_MODER_PIN9_OUTPUT (1 << 19)
+#define GPIOC_MODER_PIN9_INPUT  ~((1 << 19) |  (1 << 18))
+
 
 #define RCC_AHB2ENR (*(volatile uint32_t *) ((uint32_t *)(RCC_BASE_ADDR + RCC_AHB2ENR_OFFSET)))
 #define GPIOB_MODER (*(volatile uint32_t *) ((uint32_t *)(GPIOB_BASE_ADDR + GPIO_MODER_OFFSET)))

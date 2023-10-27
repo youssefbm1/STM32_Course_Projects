@@ -7,7 +7,7 @@ void led_init() {
     RCC_AHB2ENR |= 0x6;
 
     GPIOB_MODER &= ~(GPIOB_MODER_PIN14_OUTPUT);
-    GPIOC_MODER &= ~(GPIOC_MODER_PIN9_OUTPUT);
+    GPIOC_MODER &= GPIOC_MODER_PIN9_INPUT;
 }
 
 void led_g_on() {
@@ -21,6 +21,7 @@ void led_g_off() {
 void led(enum STATE s){
     switch(s){
         case LED_YELLOW:
+            GPIOC_MODER |= (1 << 18);
             GPIOC_BSRR |= (1 << 9);  
             break;
         case LED_BLUE:
@@ -28,7 +29,7 @@ void led(enum STATE s){
             GPIOC_BSRR |= (1 << 25);  
             break;
         case LED_OFF:
-            GPIOC_MODER &= ~(1 << 18);
+            GPIOC_MODER &= GPIOC_MODER_PIN9_INPUT;
             break;
     }
 }

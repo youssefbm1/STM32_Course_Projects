@@ -1,13 +1,14 @@
-PREFIX=arm-none-eabi-
+PREFIX = /Applications/ARM/bin/arm-none-eabi-
 CC    = $(PREFIX)gcc
 AS    = $(PREFIX)as
-GDB  ?= gdb-multiarch
+GDB = gdb
 
 ASFLAGS = -g
 CFLAGS = -c -g -O1 -mcpu=cortex-m4 -mthumb
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS = -T ld_ram.lds -nostdlib
-CPPFLAGS = -I../CMSIS/Device/ST/STM32L4xx/Include/ -I../CMSIS/Include/
+CPPFLAGS = -I/usr/include -I../CMSIS/Device/ST/STM32L4xx/Include/ -I../CMSIS/Include/
+
 
 OBJ = main.o crt0.o
 EXE = main
@@ -24,7 +25,7 @@ connect:
 	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
 
 debug: $(EXE)
-	$(GDB) -x se203.gdb $<
+	$(PREFIX)$(GDB) -x se203.gdb $<
 
 clean:
 	rm -f $(OBJ)
