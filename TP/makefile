@@ -7,7 +7,7 @@ ASFLAGS = -g
 CFLAGS = -c -g -O1 -mcpu=cortex-m4 -mthumb
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS = -T ld_ram.lds -nostdlib
-CPPFLAGS = -I/usr/include -I../CMSIS/Device/ST/STM32L4xx/Include/ -I../CMSIS/Include/
+CPPFLAGS = -I/usr/include -I ./CMSIS/Device/ST/STM32L4xx/Include/ -I ./CMSIS/Include/
 
 
 OBJ = main.o crt0.o 
@@ -17,7 +17,7 @@ all: $(EXE)
 
 
 $(EXE): $(OBJ)
-	$(CC) $(LDFLAGS) $^ clocks.o -o $@
+	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ clocks.o -o $@
 
 .PHONY: connect debug clean
 
