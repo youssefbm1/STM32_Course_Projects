@@ -10,14 +10,14 @@ LDFLAGS = -T ld_ram.lds -nostdlib
 CPPFLAGS = -I/usr/include -I../CMSIS/Device/ST/STM32L4xx/Include/ -I../CMSIS/Include/
 
 
-OBJ = main.o crt0.o
-EXE = main
+OBJ = main.o crt0.o 
+EXE = main 
 
 all: $(EXE)
 
 
 $(EXE): $(OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $^ clocks.o -o $@
 
 .PHONY: connect debug clean
 

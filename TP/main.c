@@ -1,9 +1,11 @@
 #include <stdint.h>
 
 #include "led.c"
+#include "clocks.h"
 
 int main() {
     led_init();
+    clocks_init();
 
     while (1) {
         led_g_on();
