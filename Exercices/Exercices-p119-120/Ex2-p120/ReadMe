@@ -1,0 +1,21 @@
+Sans optimisation (-O0), voilà ce qu'on remarque :
+.text est de 184 octets.
+.data est de 4 octets.
+.bss est de 5 octet.
+.rodata est de 66 octets.
+
+Avec -O1 :
+.text réduit à 108 octets. Le programme minimise les opérations superflues et prend les instructions les plus avancées du CPU.
+.data reste à 4 octets.
+.bss reste aussi à 5 octet.
+.rodata se scinde en deux parties : .rodata et .rodata.str1.4. Elles font 14 et 50 octets, donc 64 octets.
+
+Pour -O2 :
+.text devient .text.startup mais garde la même taille.
+.data et .bss changent pas.
+.rodata est pareil.
+
+Pour -Os :
+.text est de 104 octets ! Là, le compilateur privilégie la taille du texte plutôt que la vitesse d'exécution.
+.data et .bss ne changent pas.
+.rodata, cette fois, fait 47 octets.

@@ -1,0 +1,13 @@
+Utilisez la commande make results pour afficher les emplacements des symboles dans 
+les diverses sections.
+
+Les sections s'organisent dans cet ordre :
+.text
+.rodata
+.data
+.bss
+heap (tas)
+stack (pile)
+
+L'attribution de mémoire sur le tas(HEAP) augmente selon les adresses, alors que 
+sur la pile(STACK), elle diminue.
