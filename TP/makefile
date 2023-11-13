@@ -2,6 +2,7 @@ PREFIX = /Applications/ARM/bin/arm-none-eabi-
 CC    = $(PREFIX)gcc
 AS    = $(PREFIX)as
 GDB = gdb
+OBJCOPY  = $(PREFIX)objcopy
 
 ASFLAGS = -g
 CFLAGS = -c -g -O1 -mcpu=cortex-m4 -mthumb
@@ -10,15 +11,19 @@ LDFLAGS = -T ld_ram.lds -nostdlib
 CPPFLAGS = -I/usr/include -I ./CMSIS/Device/ST/STM32L4xx/Include/ -I ./CMSIS/Include/
 
 
-OBJ = main.o crt0.o uart.o matrix.o
+OBJ = main.o crt0.o uart.o matrix.o 
 EXE = main 
+IMG = image.h
 
-all: $(EXE)
+all: $(IMG) $(EXE)
 
 
 $(EXE): $(OBJ)
 	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ clocks.o -o $@
 	
+$(IMG):*.raw
+	xxd -i $< >$@
+
 .PHONY: connect debug clean
 
 connect:

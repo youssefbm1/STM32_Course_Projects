@@ -19,16 +19,29 @@ static void delay(uint32_t n){
     asm volatile("nop");
 }
 
-void pulse_SCK(){
+void pulse_SCK(void) {
     SCK(0);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
     SCK(1);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
     SCK(0);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
 }
+
 
 void pulse_LAT(){
     LAT(1);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
     LAT(0);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
     LAT(1);
+    for(int i=0;i<10;++i)
+      asm volatile("nop");
 }
 
 void deactivate_rows(){
@@ -84,18 +97,12 @@ void activate_row(int row){
 }
 
 void send_byte(uint8_t val, int bank) {
-    /* 
-        le premier, appelé BANK0 qui stocke 6 bits par LED. Il contient donc 24*6 = 144 bits.
-        le deuxième, appelé BANK1 qui stocke 8 bits par LED. Il contient donc 24*8 = 192 bits.
-    */
     SB(bank);
-    uint8_t counter = 5;
-    if(bank)
-        counter = 7;
-    do{
-        SDA((1<<counter) & val);
+    for (int i = 7; i>=0 ; i--) {
+        uint8_t bit = (val >> i) & 1;
+        SDA(bit);
         pulse_SCK();
-    }while(counter--);
+    }
 }
 
 void mat_set_row(int row, const rgb_color *val){
@@ -106,8 +113,6 @@ void mat_set_row(int row, const rgb_color *val){
         send_byte(val[i].g, 1);
         send_byte(val[i].r, 1);
     } while (i--);
-    deactivate_rows();
-    delay(1000);
     pulse_LAT();
     activate_row(row);
 }
