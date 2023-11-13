@@ -11,7 +11,7 @@ LDFLAGS = -T ld_ram.lds -nostdlib
 CPPFLAGS = -I/usr/include -I ./CMSIS/Device/ST/STM32L4xx/Include/ -I ./CMSIS/Include/
 
 
-OBJ = main.o crt0.o uart.o matrix.o 
+OBJ = main.o crt0.o led.o uart.o matrix.o irq.o button.o
 EXE = main 
 IMG = image.h
 
