@@ -1,3 +1,1 @@
-# My new project
-
-Modified
+This project was developed for the course on the architecture of embedded systems. The codebase primarily focuses on various functionalities including UART communication, IRQ handling, and image processing, all of which were tested on an STM32 microcontroller.
